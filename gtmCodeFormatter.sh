@@ -13,10 +13,14 @@ while read lineOfText; do
 
     # replace whitespaces with __
     replaceWhitespaceWith="__"
+    replaceDashwithDASH="DASH"
     jsGtmVarNameWithBrackets=${gtmVar//" "/$replaceWhitespaceWith}
+
     if [ -n "${jsGtmVarNameWithBrackets}" ]; then
+        # replace - with DASH
+        jsGtmVarWithDASH=${jsGtmVarNameWithBrackets//"-"/$replaceDashwithDASH}
         #jsGtmVar="$(echo -e "${lineOfText}" | sed "s/${gtmVar}/zzz${jsGtmVarNameWithBrackets}zzz/" | sed -i.bak "s/\({{\)\(.*\)\(}}\)/\2/")"
-        sed -i "s/${gtmVar}/zzz${jsGtmVarNameWithBrackets}zzz/" $1        
+        sed -i "s/${gtmVar}/zzz${jsGtmVarWithDASH}zzz/" $1        
         #jsGtmVar="$(echo -e "${lineOfText}" | sed "s/${gtmVar}/zzz${jsGtmVarNameWithBrackets}zzz/")"
         #echo -e "${jsGtmVar}"
     fi    
