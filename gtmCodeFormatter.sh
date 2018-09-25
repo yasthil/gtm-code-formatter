@@ -37,3 +37,7 @@ sed -i "s/\({{\)\(.*\)\(}}\)/\2/" $1
 
 
 #grep -Pio '({{)(.*)(}})' gtmCodeFormatter.sh
+
+# efficient way
+# sed -i "s/\({{\)\(.*\)\(}}\)/'\(\2\)'/" ProviderSearchFromAjaxResponse2.js
+
