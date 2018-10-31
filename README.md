@@ -6,4 +6,4 @@ This is a simple script to convert GTM code to a JS-friendly syntax ensuring you
 * To convert GTM code -> JS code
     * ./gtmCodeFormatter.sh FILE_NAME 'js'
 * To convert JS code -> GTM code
-    * ./gtmCodeFormatter.sh ProviderSearchFromAjaxResponse2.js 'gtm'
+    * ./gtmCodeFormatter.sh FILE_NAME 'gtm'

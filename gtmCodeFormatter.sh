@@ -6,9 +6,9 @@
 
 # Example: Run the following in a Bash terminal - like Git Bash, from the same directory
 # GTM code -> JS code
-#   ./gtmCodeFormatter.sh ProviderSearchFromAjaxResponse2.js 'js'
+#   ./gtmCodeFormatter.sh FILE_NAME 'js'
 # JS code -> GTM code
-#   ./gtmCodeFormatter.sh ProviderSearchFromAjaxResponse2.js 'gtm'
+#   ./gtmCodeFormatter.sh FILE_NAME 'gtm'
 
 
 if [[ $# -eq 0 ]] ; then
