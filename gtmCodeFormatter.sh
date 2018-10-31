@@ -38,6 +38,10 @@ sed -i "s/\({{\)\(.*\)\(}}\)/\2/" $1
 
 #grep -Pio '({{)(.*)(}})' gtmCodeFormatter.sh
 
-# efficient way
+## USE THIS!!!
+# efficient way - GTM code to valid JS code
 # sed -i "s/\({{\)\(.*\)\(}}\)/'\(\2\)'/" ProviderSearchFromAjaxResponse2.js
+
+# efficient way - JS code back to GTM code
+#sed -i "s/\('{{\)\(.*\)\(}}'\)/\{{\2\}}/" ProviderSearchFromAjaxResponse2.js
 
