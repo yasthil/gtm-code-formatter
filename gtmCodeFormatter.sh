@@ -19,16 +19,16 @@ if [[ $# -eq 0 ]] ; then
 fi
 
 # GTM code -> JS code
-if [ $2 == 'js' ]; then
+if [ "$2" == 'js' ]; then
     # replace all instances of {{}} with '{{}}'    
-    sed -i "s/\({{\)\(.*\)\(}}\)/'\{{\2\}}'/" $1
+    sed -i "s/\({{\)\(.*\)\(}}\)/'\{{\2\}}'/" "$1"
     # 2. getting rid of script tags
-    sed -i "s/\(<script>\)/\/\/\1/" $1
-    sed -i "s/\(<\/script>\)/\/\/\1/" $1
-elif [ $2 == 'gtm' ]; then
+    sed -i "s/\(<script>\)/\/\/\1/" "$1"
+    sed -i "s/\(<\/script>\)/\/\/\1/" "$1"
+elif [ "$2" == 'gtm' ]; then
     # JS code -> GTM code
     # Reverse 1.
-    sed -i "s/\('{{\)\(.*\)\(}}'\)/\{{\2\}}/" $1
+    sed -i "s/\('{{\)\(.*\)\(}}'\)/\{{\2\}}/" "$1"
     # Reverse 2.1
     sed -i "s/\(\/\/<script>\)/<script>/" $1
     # Reverse 2.2
