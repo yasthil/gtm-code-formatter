@@ -4,44 +4,36 @@
 # 1. File Name - name of file that contains  GTM code
 # 2. 'js' (Format code for JS) or 'gtm' (Format code for GTM)
 
-# replace all instances of {{}} with something text editor friendly
-
-# Remove whitespace from all {{}} occurances
-while read lineOfText; do
-    # find the GTM variables
-    gtmVar="$(echo -e "${lineOfText}" | grep -Pio '({{)(.*)(}})')"
-
-    # replace whitespaces with __
-    replaceWhitespaceWith="__"
-    replaceDashwithDASH="DASH"
-    jsGtmVarNameWithBrackets=${gtmVar//" "/$replaceWhitespaceWith}
-
-    if [ -n "${jsGtmVarNameWithBrackets}" ]; then
-        # replace - with DASH
-        jsGtmVarWithDASH=${jsGtmVarNameWithBrackets//"-"/$replaceDashwithDASH}
-        #jsGtmVar="$(echo -e "${lineOfText}" | sed "s/${gtmVar}/zzz${jsGtmVarNameWithBrackets}zzz/" | sed -i.bak "s/\({{\)\(.*\)\(}}\)/\2/")"
-        sed -i "s/${gtmVar}/zzz${jsGtmVarWithDASH}zzz/" $1        
-        #jsGtmVar="$(echo -e "${lineOfText}" | sed "s/${gtmVar}/zzz${jsGtmVarNameWithBrackets}zzz/")"
-        #echo -e "${jsGtmVar}"
-    fi    
-    
-done <$1
-
-# Remove {{}} keep only the inner text
-sed -i "s/\({{\)\(.*\)\(}}\)/\2/" $1
-
-# Note the double quotes
-#local search=''
-#local replace=''
-#sed -i "" "s/{{\(.*\)}}/${replace}/g" $1
+# Example: Run the following in a Bash terminal - like Git Bash, from the same directory
+# GTM code -> JS code
+#   ./gtmCodeFormatter.sh ProviderSearchFromAjaxResponse2.js 'js'
+# JS code -> GTM code
+#   ./gtmCodeFormatter.sh ProviderSearchFromAjaxResponse2.js 'gtm'
 
 
-#grep -Pio '({{)(.*)(}})' gtmCodeFormatter.sh
+if [[ $# -eq 0 ]] ; then
+    echo "No params given. Please specify the file to edit as parameter 1."
+    echo "Format: ./gtmCodeFormatter.sh FILE_NAME OPTION"
+    echo "OPTION can either be 'js' or 'gtm'"    
+    exit 0;
+fi
 
-## USE THIS!!!
-# efficient way - GTM code to valid JS code
-# sed -i "s/\({{\)\(.*\)\(}}\)/'\(\2\)'/" ProviderSearchFromAjaxResponse2.js
-
-# efficient way - JS code back to GTM code
-#sed -i "s/\('{{\)\(.*\)\(}}'\)/\{{\2\}}/" ProviderSearchFromAjaxResponse2.js
+# GTM code -> JS code
+if [ $2 == 'js' ]; then
+    # replace all instances of {{}} with '{{}}'    
+    sed -i "s/\({{\)\(.*\)\(}}\)/'\{{\2\}}'/" $1
+    # 2. getting rid of script tags
+    sed -i "s/\(<script>\)/\/\/\1/" $1
+    sed -i "s/\(<\/script>\)/\/\/\1/" $1
+elif [ $2 == 'gtm' ]; then
+    # JS code -> GTM code
+    # Reverse 1.
+    sed -i "s/\('{{\)\(.*\)\(}}'\)/\{{\2\}}/" $1
+    # Reverse 2.1
+    sed -i "s/\(\/\/<script>\)/<script>/" $1
+    # Reverse 2.2
+    sed -i "s/\(\/\/<\/script>\)/<\/script>/" $1
+else   
+    echo "Unknown param"
+fi
 
