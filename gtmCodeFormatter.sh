@@ -30,9 +30,9 @@ elif [ "$2" == 'gtm' ]; then
     # Reverse 1.
     sed -i "s/\('{{\)\(.*\)\(}}'\)/\{{\2\}}/" "$1"
     # Reverse 2.1
-    sed -i "s/\(\/\/<script>\)/<script>/" $1
+    sed -i "s/\(\/\/<script>\)/<script>/" "$1"
     # Reverse 2.2
-    sed -i "s/\(\/\/<\/script>\)/<\/script>/" $1
+    sed -i "s/\(\/\/<\/script>\)/<\/script>/" "$1"
 else   
     echo "Unknown param"
 fi
